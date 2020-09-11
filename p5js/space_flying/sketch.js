@@ -10,13 +10,10 @@ let check;
 function setup() {
     createCanvas(600, 600);
     plane = new Plane();
-    frameRate(30);
+    frameRate(60);
     pickLocation(); 
     timer = createP('timer');
     setInterval(timeIt, 1000);    
-    d = createP('d');
-    check = createP('check');
-    setInterval(showDist, 100);
 
 }
 
@@ -27,7 +24,7 @@ function draw() {
     textAlign(CENTER, CENTER);
     
     text("Click your mouse \nto start the game",300, 300);
-    //if (mouse == true) {     
+    if (mouse == true) {     
         background(0, 0, 0);
         plane.show();
         fill(96, 96, 96);
@@ -43,10 +40,8 @@ function draw() {
             if(keyIsDown(LEFT_ARROW)){
             plane.move(-1,0);
         }
-        for (let i = 0; i < 2; i++) {
-            rect(barrier[i].x, barrier[i].y, scl, scl);  
-
-            
+        for (let i = 0; i < 15; i++) {
+            rect(barrier[i].x, barrier[i].y, scl, scl);             
             barrier[i].y = barrier[i].y + 10;
 
             if (barrier[i].y > height) {
@@ -60,16 +55,15 @@ function draw() {
             {
                 noloop();
             }
-    // }
+     }
 }
 
 function pickLocation() {
   let cols = floor(width / scl);
-  for (let j = 0; j < 2; j++) {
+  for (let j = 0; j < 15; j++) {
     barrier[j] = createVector(floor(random(cols)), random(-30, 0));
     barrier[j].mult(scl);         
-  }
-     
+  }   
 }
 
 function mouseClicked() {
@@ -81,22 +75,15 @@ function timeIt() {
     counter++;
 }
 
-function showDist() {
-    for (let i = 0; i < 2; i++) {
-        d.html(0 + ': ' + dist(plane.x, plane.y, barrier[0].x, barrier[0].y) + '\n' + 1 + ': ' + dist(plane.x, plane.y, barrier[1].x, barrier[1].y));
-    }
-}
-
 function gameOver() {
-    for (let i = 0; i < 2; i++) {
-        check.html(i);
-        if (dist(plane.x, plane.y, barrier[i].x, barrier[i].y) < 1)
+    for (let i = 0; i < 15; i++) {
+        if (dist(plane.x, plane.y, barrier[i].x, barrier[i].y) < 20)
             {
                 background(0, 0, 0);
                 textSize(30);
                 fill(255);
                 textAlign(CENTER);
-                text("You are hit by " + i + "!!!",300, 300);
+                text("You survive " + counter + "s!!!",300, 300);
                 return true;
             }
     }
@@ -112,17 +99,6 @@ function Plane() {
         
         this.x = constrain(this.x, 0, width - scl);
         this.y = constrain(this.y, 0, height - scl);
-    };
-    
-    this.death = function (pos) {
-        let d = dist(this.x, this.y, pos.x, pos.y);
-        if (d < 1) {
-            return true;
-        }
-        else{
-            return false;  
-        }
-
     };
     
     this.show = function () {
