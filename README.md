@@ -15,4 +15,4 @@ While you are controlling, be careful the grey squares which are the stars dropi
 The game will be over after you hit any star and the time you survive will show up as your score. <br/>
 
 ## Example
-![alt text] score.jpg
+![alt text] score.JPG
