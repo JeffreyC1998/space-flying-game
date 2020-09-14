@@ -15,4 +15,4 @@ While you are controlling, be careful the grey squares which are the stars dropi
 The game will be over after you hit any star and the time you survive will show up as your score. <br/>
 
 ## Example
-![alt text](http://url/to/score.JPG)
+![alt text](https://github.com/JeffreyC1998/space-flying-game/blob/master/score.JPG)
